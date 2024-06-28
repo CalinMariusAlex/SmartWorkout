@@ -37,6 +37,7 @@ class UserController extends AbstractController
 
             $user = $form->getData();
 
+
             $userRepository->saveUser($user);
 
             // ... perform some action, such as saving the task to the database
