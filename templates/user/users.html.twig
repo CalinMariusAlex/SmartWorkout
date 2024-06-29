@@ -1,0 +1,13 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Showing Users{% endblock %}
+
+{% block body %}
+
+    {% for item in users %}
+
+           <li>{{ item.getID() }}    {{ item.getEmail() }} </li>
+
+    {% endfor %}
+
+{% endblock %}

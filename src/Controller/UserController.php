@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\User;
 use App\Form\UserType;
 use App\Repository\UserRepository;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -17,7 +18,6 @@ class UserController extends AbstractController
     {
         return $this->render('user/index.html.twig', [
             'controller_name' => 'UserController',
-            'test' => 'test',
         ]);
     }
 
@@ -26,18 +26,13 @@ class UserController extends AbstractController
     {
         // just set up a fresh $task object (remove the example data)
         $user = new User();
-
         $form = $this->createForm(UserType::class, $user);
-
-
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
             // $form->getData() holds the submitted values
             // but, the original `$task` variable has also been updated
 
             $user = $form->getData();
-
-
             $userRepository->saveUser($user);
 
             // ... perform some action, such as saving the task to the database
@@ -47,6 +42,25 @@ class UserController extends AbstractController
 
         return $this->render('user/register.html.twig', [
             'form' => $form,
+        ]);
+    }
+
+    public function goToUsers() : void
+    {
+
+    }
+
+    #[Route('/user/users', name: 'show_users')]
+    public function showUsers(Request $request, UserRepository $userRepository): Response
+    {
+        $users = $userRepository->getUsers();
+       // $form = $this->createForm(UserType::class, $users);
+       // $form->handleRequest($request);
+
+
+        return $this->render('user/users.html.twig', [
+            'users' => $users,
+           // 'form' => $form->createView(),
         ]);
     }
 
