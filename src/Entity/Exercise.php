@@ -20,18 +20,16 @@ class Exercise
 
     //#[ORM\Column(length: 100)]
     //private ?string $type = null;
-    #[ORM\OneToMany(mappedBy: 'exercise', targetEntity: Exercise::class)]
+    #[ORM\OneToMany(targetEntity: Exercise::class, mappedBy: 'exercise')]
     private Collection $exerciseLogs;
 
-    /**
-     * @var Collection<int, MuscleGroup>
-     */
-    #[ORM\OneToMany(targetEntity: MuscleGroup::class, mappedBy: 'relation')]
-    private Collection $muscleGroups;
+    #[ORM\ManyToOne(inversedBy: 'exercises')]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?MuscleGroup $muscleGroup = null;
 
     public function __construct()
     {
-        $this->muscleGroups = new ArrayCollection();
+
     }
 
     public function getId(): ?int
@@ -63,33 +61,16 @@ class Exercise
         return $this;
     }
 
-    /**
-     * @return Collection<int, MuscleGroup>
-     */
-    public function getMuscleGroups(): Collection
+    public function getMuscleGroup(): ?MuscleGroup
     {
-        return $this->muscleGroups;
+        return $this->muscleGroup;
     }
 
-    public function addMuscleGroup(MuscleGroup $muscleGroup): static
+    public function setMuscleGroup(?MuscleGroup $muscleGroup): static
     {
-        if (!$this->muscleGroups->contains($muscleGroup)) {
-            $this->muscleGroups->add($muscleGroup);
-            $muscleGroup->setRelation($this);
-        }
+        $this->muscleGroup = $muscleGroup;
 
         return $this;
     }
 
-    public function removeMuscleGroup(MuscleGroup $muscleGroup): static
-    {
-        if ($this->muscleGroups->removeElement($muscleGroup)) {
-            // set the owning side to null (unless already changed)
-            if ($muscleGroup->getRelation() === $this) {
-                $muscleGroup->setRelation(null);
-            }
-        }
-
-        return $this;
-    }
 }

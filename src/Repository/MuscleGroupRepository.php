@@ -16,6 +16,12 @@ class MuscleGroupRepository extends ServiceEntityRepository
         parent::__construct($registry, MuscleGroup::class);
     }
 
+    public function saveMuscleGroup(MuscleGroup $group): void
+    {
+        $this->getEntityManager()->persist($group);
+        $this->getEntityManager()->flush();
+    }
+
     //    /**
     //     * @return MuscleGroup[] Returns an array of MuscleGroup objects
     //     */

@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\MuscleGroupRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: MuscleGroupRepository::class)]
@@ -16,9 +18,18 @@ class MuscleGroup
     #[ORM\Column(length: 255)]
     private ?string $name = null;
 
-    #[ORM\ManyToOne(inversedBy: 'muscleGroups')]
-    #[ORM\JoinColumn(nullable: false)]
-    private ?Exercise $relation = null;
+    /**
+     * @var Collection<int, Exercise>
+     */
+    #[ORM\OneToMany(targetEntity: Exercise::class, mappedBy: 'muscleGroup', orphanRemoval: true)]
+    private Collection $exercises;
+
+    public function __construct()
+    {
+        $this->exercises = new ArrayCollection();
+    }
+
+
 
     public function getId(): ?int
     {
@@ -37,15 +48,37 @@ class MuscleGroup
         return $this;
     }
 
-    public function getRelation(): ?Exercise
+    /**
+     * @return Collection<int, Exercise>
+     */
+    public function getExercises(): Collection
     {
-        return $this->relation;
+        return $this->exercises;
     }
 
-    public function setRelation(?Exercise $relation): static
+    public function addExercise(Exercise $exercise): static
     {
-        $this->relation = $relation;
+        if (!$this->exercises->contains($exercise)) {
+            $this->exercises->add($exercise);
+            $exercise->setMuscleGroup($this);
+        }
 
         return $this;
     }
+
+    public function removeExercise(Exercise $exercise): static
+    {
+        if ($this->exercises->removeElement($exercise)) {
+            // set the owning side to null (unless already changed)
+            if ($exercise->getMuscleGroup() === $this) {
+                $exercise->setMuscleGroup(null);
+            }
+        }
+
+        return $this;
+    }
+
+
+
+
 }
