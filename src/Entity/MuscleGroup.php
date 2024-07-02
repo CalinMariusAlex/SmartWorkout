@@ -29,6 +29,12 @@ class MuscleGroup
         $this->exercises = new ArrayCollection();
     }
 
+    //Had to add this to fix the error for the exercise add dropdown
+    public function __toString() : string
+    {
+        return $this->name;
+    }
+
     public function getId(): ?int
     {
         return $this->id;

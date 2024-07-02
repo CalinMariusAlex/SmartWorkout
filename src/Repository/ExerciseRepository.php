@@ -16,6 +16,17 @@ class ExerciseRepository extends ServiceEntityRepository
         parent::__construct($registry, Exercise::class);
     }
 
+    public function saveExercise(Exercise $exercise):void
+    {
+        $this->getEntityManager()->persist($exercise);
+        $this->getEntityManager()->flush();
+    }
+
+    public function getExercises(): array
+    {
+        return $this->getEntityManager()->getRepository(Exercise::class)->findAll();
+    }
+
     //    /**
     //     * @return Exercise[] Returns an array of Exercise objects
     //     */

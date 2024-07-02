@@ -1,0 +1,12 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Exercise add{% endblock %}
+
+{% block body %}
+
+    {% for exercise in exercises %}
+
+        <li> {{ exercise.getID() }}   {{ exercise.getName()}}    {{ exercise.getMuscleGroup().getName()}} </li>
+    {% endfor %}
+
+{% endblock %}
