@@ -22,25 +22,36 @@ class ExerciseRepository extends ServiceEntityRepository
         $this->getEntityManager()->flush();
     }
 
-    public function getExercises(): array
+    public function deleteExercise(Exercise $exercise)
     {
-        return $this->getEntityManager()->getRepository(Exercise::class)->findAll();
+        $this->getEntityManager()->remove($exercise);
+        $this->getEntityManager()->flush();
     }
 
-    //    /**
-    //     * @return Exercise[] Returns an array of Exercise objects
-    //     */
-    //    public function findByExampleField($value): array
-    //    {
-    //        return $this->createQueryBuilder('e')
-    //            ->andWhere('e.exampleField = :val')
-    //            ->setParameter('val', $value)
-    //            ->orderBy('e.id', 'ASC')
-    //            ->setMaxResults(10)
-    //            ->getQuery()
-    //            ->getResult()
-    //        ;
-    //    }
+        /**
+         * @return Exercise[] Returns an array of Exercise objects
+         */
+        public function checkExerciseExists($name, $id): array
+        {
+            return $this->createQueryBuilder('e')
+                ->andWhere('e.name = :val')
+                ->setParameter('val', $name)
+                ->andWhere('e.id != :id')
+                ->setParameter('id', $id)
+                ->getQuery()
+                ->getResult()
+            ;
+        }
+
+    public function checkExerciseExistsByName($name): array
+    {
+        return $this->createQueryBuilder('e')
+            ->andWhere('e.name = :val')
+            ->setParameter('val', $name)
+            ->getQuery()
+            ->getResult()
+            ;
+    }
 
     //    public function findOneBySomeField($value): ?Exercise
     //    {

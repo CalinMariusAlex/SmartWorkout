@@ -1,0 +1,15 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Workouts{% endblock %}
+
+{% block body %}
+
+    {% for workout in workouts %}
+
+        <ul> {{ workout.id }} {{ workout.name }} {{ workout.person.email }} {{ workout.createdAt|date("m/d/Y h:m") }}</ul>
+
+    {% endfor %}
+
+
+
+{% endblock %}

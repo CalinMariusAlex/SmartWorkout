@@ -35,6 +35,11 @@ class ExerciseLog
         return $this->id;
     }
 
+    public function __toString() :string
+    {
+        return 'error';
+    }
+
     public function getDuration(): ?int
     {
         return $this->duration;

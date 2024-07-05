@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\MuscleGroup;
 use App\Form\MuscleGroupType;
 use App\Repository\MuscleGroupRepository;
+use App\Service\MuscleGroupService;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -29,8 +30,8 @@ class MuscleGroupController extends AbstractController
         ]);
     }
 
-    #[Route('/muscle-group-add', name: 'app_add_muscle_group')]
-    public function add(Request $request, MuscleGroupRepository $muscleGroupRepository) : Response
+    #[Route('/muscle-group-add', name: 'app_muscle_group_add')]
+    public function add(Request $request, MuscleGroupService $groupService) : Response
     {
         $muscleGroup = new MuscleGroup();
         $form = $this->createForm(MuscleGroupType::class);
@@ -39,12 +40,11 @@ class MuscleGroupController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $muscleGroup = $form->getData();
 
-            if($muscleGroupRepository->checkMuscleGroup($muscleGroup))
-            {
+            if($groupService->saveMuscleGroup($muscleGroup)['error']) {
                 return $this->redirectToRoute('app_muscle_group_error');
             }
 
-            $muscleGroupRepository->saveMuscleGroup($muscleGroup);
+
             return $this->redirectToRoute('app_muscle_group');
         }
 

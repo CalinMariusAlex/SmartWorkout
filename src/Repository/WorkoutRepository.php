@@ -16,28 +16,37 @@ class WorkoutRepository extends ServiceEntityRepository
         parent::__construct($registry, Workout::class);
     }
 
-    //    /**
-    //     * @return Workout[] Returns an array of Workout objects
-    //     */
-    //    public function findByExampleField($value): array
-    //    {
-    //        return $this->createQueryBuilder('w')
-    //            ->andWhere('w.exampleField = :val')
-    //            ->setParameter('val', $value)
-    //            ->orderBy('w.id', 'ASC')
-    //            ->setMaxResults(10)
-    //            ->getQuery()
-    //            ->getResult()
-    //        ;
-    //    }
+    public function saveWorkout(Workout $workout): void
+    {
+        $this->getEntityManager()->persist($workout);
+        $this->getEntityManager()->flush();
+    }
 
-    //    public function findOneBySomeField($value): ?Workout
-    //    {
-    //        return $this->createQueryBuilder('w')
-    //            ->andWhere('w.exampleField = :val')
-    //            ->setParameter('val', $value)
-    //            ->getQuery()
-    //            ->getOneOrNullResult()
-    //        ;
-    //    }
+    public function getAllWorkouts(): array
+    {
+        return $this->findAll();
+    }
+
+        /**
+         * @return Workout[] Returns an array of Workout objects
+         */
+        public function findByUserField($user): array
+        {
+            return $this->createQueryBuilder('w')
+                ->andWhere('w.person = :val')
+                ->setParameter('val', $user)
+                ->getQuery()
+                ->getResult()
+            ;
+        }
+//
+//        public function findOneByUserField($user): ?Workout
+//        {
+//            return $this->createQueryBuilder('w')
+//                ->andWhere('w.person = :val')
+//                ->setParameter('val', $user)
+//                ->getQuery()
+//                ->getOneOrNullResult()
+//            ;
+//        }
 }

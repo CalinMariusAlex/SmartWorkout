@@ -31,12 +31,7 @@ class MuscleGroupRepository extends ServiceEntityRepository
 
     public function checkMuscleGroup(MuscleGroup $group): bool
     {
-        if($this->getEntityManager()->getRepository(MuscleGroup::class)->findBy(['name' => $group->getName()]))
-        {
-            return true;
-        }
-
-        return false;
+        return !!$this->getEntityManager()->getRepository(MuscleGroup::class)->findBy(['name' => $group->getName()]);
     }
 
     //    /**
