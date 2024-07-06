@@ -35,8 +35,8 @@ security:
     # Note: Only the *first* access control that matches will be used
     access_control:
         - {path: ^/user/users, roles: IS_AUTHENTICATED_FULLY}
-        # - {path: ^/user/users, roles: IS_AUTHENTICATED_FULLY}
-        # - { path: ^/admin, roles: ROLE_ADMIN }
+        - {path: ^/workout/store, roles: IS_AUTHENTICATED_FULLY}
+        - { path: ^/all-workouts, roles: ROLE_ADMIN }
         # - { path: ^/profile, roles: ROLE_USER }
 
 when@test:

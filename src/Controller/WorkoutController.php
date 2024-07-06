@@ -50,23 +50,20 @@ class WorkoutController extends AbstractController
     }
 
     #[Route('/workouts', name: 'app_workouts')]
-    public function showAllWorkouts(Request $request, WorkoutService $workoutService) : Response
+    public function showWorkouts(Request $request, WorkoutService $workoutService) : Response
     {
-        $workouts =  $workoutService->getAllWorkouts();
-
+        /** @var User $user */
+        $user = $this->getUser();
+        $workouts = $workoutService->getWorkoutsOfUser($user);
         return $this->render('workout/workouts.html.twig', [
             'workouts' => $workouts,
         ]);
     }
 
-    #[Route('/workoutsUser', name: 'app_workouts_user')]
-    public function showWorkoutsOfUser(Request $request, WorkoutService $workoutService)
+    #[Route('/all-workouts', name: 'app_all_workouts')]
+    public function showAllWorkouts(Request $request, WorkoutService $workoutService): Response
     {
-        /** @var User $user */
-        $user = $this->getUser();
-
-        $workouts = $workoutService->getWorkoutsOfUser($user);
-
+        $workouts =  $workoutService->getAllWorkouts();
         return $this->render('workout/workouts.html.twig', [
             'workouts' => $workouts,
         ]);
