@@ -40,6 +40,9 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\OneToMany(targetEntity: Workout::class, mappedBy: 'person', orphanRemoval: true)]
     private Collection $workouts;
 
+    #[ORM\Column(length: 255)]
+    private ?string $name = null;
+
     public function __construct()
     {
         $this->workouts = new ArrayCollection();
@@ -146,6 +149,18 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
                 $workout->setPerson(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getName(): ?string
+    {
+        return $this->name;
+    }
+
+    public function setName(string $name): static
+    {
+        $this->name = $name;
 
         return $this;
     }
