@@ -1,15 +1,75 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Workouts{% endblock %}
+{% block title %}Exercises!{% endblock %}
 
 {% block body %}
+    <style>
+        .example-wrapper {
+            margin: 1em auto;
+            max-width: 800px;
+            width: 95%;
+            font: 18px/1.5 sans-serif;
+        }
 
-    {% for workout in workouts %}
+        .example-wrapper code {
+            background: #F5F5F5;
+            padding: 2px 6px;
+        }
 
-        <ul> {{ workout.id }} {{ workout.name }} {{ workout.person.email }} {{ workout.createdAt|date("m/d/Y h:m") }}</ul>
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
 
-    {% endfor %}
+        table, th, td {
+            border: 1px solid black;
+        }
+
+        th, td {
+            padding: 8px;
+            text-align: center;
+        }
+
+        .button-group {
+            display: flex;
+            gap: 10px;
+        }
+
+        .button-group button {
+            padding: 5px 10px;
+            cursor: pointer;
+        }
+    </style>
+
+    <div class="example-wrapper">
+        <h1>Workouts</h1>
+        <table class="table">
+            <thead>
+            <tr>
+                <th scope="col">Index</th>
+                <th scope="col">Workout</th>
+                <th scope="col">Name</th>
+                <th scope="col">Email</th>
+                <th scope="col">Date</th>
+            </tr>
+            </thead>
+            <tbody>
+
+            {% for workout in workouts %}
+
+                <tr>
+                    <th scope="row">{{ workout.id }}</th>
+                    <td>{{ workout.name }}</td>
+                    <td>{{ workout.person.name }}</td>
+                    <td>{{ workout.person.email }}</td>
+                    <td>{{ workout.createdAt|date("m/d/Y h:m") }}</td>
+                </tr>
+
+            {% endfor %}
+
+            </tbody>
+        </table>
 
 
-
+    </div>
 {% endblock %}
