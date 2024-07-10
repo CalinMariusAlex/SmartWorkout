@@ -37,6 +37,7 @@ security:
         - {path: ^/user/users, roles: IS_AUTHENTICATED_FULLY}
         - {path: ^/workout/store, roles: IS_AUTHENTICATED_FULLY}
         - { path: ^/all-workouts, roles: ROLE_ADMIN }
+        - { path: ^/users, roles: ROLE_ADMIN }
         # - { path: ^/profile, roles: ROLE_USER }
 
 when@test:

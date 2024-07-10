@@ -51,13 +51,23 @@ class UserController extends AbstractController
         ]);
     }
 
-    #[Route('/user/users', name: 'show_users')]
+    #[Route('/users', name: 'show_users')]
     public function showUsers(UserRepository $userRepository): Response
     {
-
-
         return $this->render('user/users.html.twig', [
             'users' => $userRepository->findAll(),
+
+        ]);
+    }
+
+    #[Route('/user/details/{id}', name: 'details_user')]
+    public function showDetails(UserRepository $userRepository, $id): Response
+    {
+        /** @var User $user */
+        $user = $userRepository->findOneById($id);
+
+        return $this->render('user/details.html.twig', [
+            'user' => $user,
 
         ]);
     }
