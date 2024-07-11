@@ -30,6 +30,9 @@ class ExerciseLog
     #[ORM\JoinColumn(nullable: false)]
     private ?Exercise $exercise = null;
 
+    #[ORM\Column]
+    private ?int $weight = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -96,6 +99,18 @@ class ExerciseLog
     public function setExercise(?Exercise $exercise): static
     {
         $this->exercise = $exercise;
+
+        return $this;
+    }
+
+    public function getWeight(): ?int
+    {
+        return $this->weight;
+    }
+
+    public function setWeight(int $weight): static
+    {
+        $this->weight = $weight;
 
         return $this;
     }

@@ -27,6 +27,12 @@ class WorkoutRepository extends ServiceEntityRepository
         return $this->findAll();
     }
 
+    public function deleteWorkout(Workout $workout)
+    {
+        $this->getEntityManager()->remove($workout);
+        $this->getEntityManager()->flush();
+    }
+
         /**
          * @return Workout[] Returns an array of Workout objects
          */
@@ -39,6 +45,17 @@ class WorkoutRepository extends ServiceEntityRepository
                 ->getResult()
             ;
         }
+
+    public function findByIdField($id): ?Workout
+    {
+        return $this->createQueryBuilder('w')
+            ->andWhere('w.id = :val')
+            ->setParameter('val', $id)
+            ->getQuery()
+            ->getOneOrNullResult()
+            ;
+    }
+
 //
 //        public function findOneByUserField($user): ?Workout
 //        {

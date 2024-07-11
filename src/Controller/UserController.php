@@ -14,11 +14,19 @@ use Symfony\Component\Routing\Attribute\Route;
 
 class UserController extends AbstractController
 {
-    #[Route('/user', name: 'app_user')]
+    #[Route('/home', name: 'app_home')]
+    public function home(): Response
+    {
+        return $this->render('user/home.html.twig', [
+
+        ]);
+    }
+
+    #[Route('/user', name: 'app_user_index')]
     public function index(): Response
     {
         return $this->render('user/index.html.twig', [
-            'controller_name' => 'UserController',
+            'controller_name' => $this->getUser(),
         ]);
     }
 
@@ -68,6 +76,15 @@ class UserController extends AbstractController
 
         return $this->render('user/details.html.twig', [
             'user' => $user,
+        ]);
+    }
+
+    #[Route('/user/details', name: 'app_details_user')]
+    public function showUserDetails(UserRepository $userRepository): Response
+    {
+
+        return $this->render('user/details.html.twig', [
+            'user' => $this->getUser(),
 
         ]);
     }

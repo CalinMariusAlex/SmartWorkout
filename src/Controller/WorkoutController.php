@@ -70,4 +70,13 @@ class WorkoutController extends AbstractController
 
     }
 
+    #[Route('/workouts/{id}', name: 'delete_workout')]
+    public function deleteWorkout(Request $request, WorkoutService $workoutService,$id): Response
+    {
+        $workout = $workoutService->getWorkoutById($id);
+        $workoutService->deleteWorkout($workout);
+
+        return $this->redirectToRoute('app_workouts');
+
+    }
 }

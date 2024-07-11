@@ -25,6 +25,7 @@ class WorkoutType extends AbstractType
             ->add('exerciseLogs', CollectionType::class, [
                 'entry_type' => ExerciseLogType::class,
                 'entry_options' => ['label' => false],
+                'label' => false,
                 'allow_add' => true,
                 'by_reference' => false,
                 'allow_delete' => true,

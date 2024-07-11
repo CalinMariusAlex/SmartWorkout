@@ -32,9 +32,6 @@ class UserType extends AbstractType
             ->add('button', SubmitType::class, [
                 'label' => 'Register',
             ])
-            ->add('showButton',  ButtonType::class, [
-                'label' => 'Show Users',
-            ])
         ;
     }
 

@@ -52,19 +52,31 @@
         </thead>
         <tbody>
             <tr>
-
                 {% for workout in user.workouts %}
-                    <tr>
-                    <td>{{ workout.name }}</td>
+                <tr>
+                    <td>
+                        {{ workout.name }}<br>
+
+                        {% set value = 0 %}
+
+                        {% for exercise in workout.exerciseLogs %}
+                            {% set value = value + exercise.duration %}
+                        {% endfor %}
+
+                        Total duration: {{ value }}
+
+                    </td>
                     <td>
                     {% for exercise in workout.exerciseLogs %}
                        <b>{{ exercise.exercise.name }}</b> <br>
                         Duration:   {{ exercise.duration }}<br>
                             Sets:   {{ exercise.sets }}<br>
                             Reps:   {{ exercise.reps }} <br>
+                            Weight:   {{ exercise.weight }} <br>
+
                     {% endfor %}
                     </td>
-            </tr>
+                </tr>
                 {% endfor %}
 
             </tr>
