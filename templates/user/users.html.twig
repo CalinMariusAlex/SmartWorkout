@@ -4,50 +4,18 @@
 
 {% block body %}
 
-    <style>
-        .example-wrapper {
-            margin: 1em auto;
-            max-width: 800px;
-            width: 95%;
-            font: 18px/1.5 sans-serif;
-        }
 
-        .example-wrapper code {
-            background: #F5F5F5;
-            padding: 2px 6px;
-        }
-
-        table {
-            width: 100%;
-            border-collapse: collapse;
-
-        }
-
-        table, th, td {
-            border: 1px solid black;
-        }
-
-        th, td {
-            padding: 1px;
-            text-align: center;
-        }
-
-        .button-group {
-            display: flex;
-            gap: 10px;
-        }
-
-        .button-group button {
-            padding: 5px 10px;
-            cursor: pointer;
-        }
-
-    </style>
-
-    <table class="table table-hover">
+    <section class="intro">
+    <div class="gradient-custom-2 h-100">
+    <div class="mask d-flex align-items-center h-100">
+    <div class="container">
+    <div class="row justify-content-center">
+    <div class="col-12">
+    <div class="table-responsive">
+    <table class="table table-dark table-bordered mb-0 table-hover">
         <thead>
         <tr>
-            <th scope="col">Index</th>
+            <th scope="col">Id</th>
             <th scope="col">Name</th>
             <th scope="col">Email</th>
             <th scope="col">Actions</th>
@@ -74,6 +42,12 @@
 
         </tbody>
     </table>
-
+    </div>
+    </div>
+    </div>
+    </div>
+    </div>
+    </div>
+    </section>
 
 {% endblock %}
